@@ -48,6 +48,7 @@ public class ApplicationContext<T> {
     public void initContextByAnnotation() throws Exception {
         //扫描包
         filePath = ApplicationContext.class.getClassLoader().getResource("").getFile();
+        System.out.println("filePath长度为 = " + filePath.length());
         loadOne(new File(filePath));
         assembleObject();
 
@@ -65,13 +66,16 @@ public class ApplicationContext<T> {
                     loadOne(child);
                 } else {
                     //通过文件路径转变成全类名,第一步把绝对路径部分去掉
-
-                    String pathWithClass = child.getAbsolutePath().substring(filePath.length() - 1);
+                    String absolutePath = child.getAbsolutePath();
+                    System.out.println("绝对路径: " + absolutePath);
+                    String pathWithClass = absolutePath.substring(filePath.length() - 1);
+                    System.out.println("pathWithClass : " + pathWithClass);
                     //选中class文件
                     if (pathWithClass.contains(".class")) {
                         //    com.xinzhi.dao.UserDao
                         //去掉.class后缀，并且把 \ 替换成 .
                         String fullName = pathWithClass.replaceAll("\\\\", ".").replace(".class", "");
+                        System.out.println("fullName = " + fullName);
                         try {
                             Class<?> aClass = Class.forName(fullName);
 

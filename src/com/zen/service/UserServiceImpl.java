@@ -1,9 +1,11 @@
 package com.zen.service;
 
+import com.zen.annoation.Bean;
 import com.zen.dao.UserDao;
 import com.zen.dao.UserDaoImpl;
 import com.zen.entity.User;
 
+@Bean
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao=new UserDaoImpl();
